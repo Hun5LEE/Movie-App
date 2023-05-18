@@ -1,17 +1,23 @@
+import Movie from "./components/Movie";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [coinData, setCoinData] = useState([]);
+  const [movies, setMovies] = useState([]);
+
+  // GET해온 data의 구조 -> data > data > movies
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(
-          "https://api.coinpaprika.com/v1/tickers"
+        const {
+          data: { data },
+        } = await axios.get(
+          "https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year"
         );
-        setCoinData(data);
+        console.log(data);
+        setMovies(data.movies);
         setLoading(false);
       } catch (err) {
         alert("Error loading");
@@ -23,17 +29,13 @@ function App() {
     <div className="App">
       <h1>The coins!</h1>
       {loading ? (
-        <strong>Loading...</strong>
+        <h1>Loading...</h1>
       ) : (
-        <ul>
-          {coinData.map((a, i) => {
-            return (
-              <li key={i}>
-                {a.name} ({a.symbol} : ${a.quotes.USD.price})
-              </li>
-            );
+        <div>
+          {movies?.map((movie) => {
+            return <Movie movie={movie} key={movie.id} />;
           })}
-        </ul>
+        </div>
       )}
     </div>
   );
