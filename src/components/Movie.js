@@ -1,15 +1,18 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function Movie({ movie }) {
-  const { medium_cover_image, title, summary, genres } = movie;
+  const { id, medium_cover_image, title, summary, genres } = movie;
 
   return (
     <div>
-      <img src={medium_cover_image} alt="..." />
-      <h2>{title}</h2>
+      <Link to={`/movie/${id}`}>
+        <img src={medium_cover_image} alt="..." />
+        <h2>{title}</h2>
+      </Link>
       <p>{summary}</p>
       <ul>
-        {genres.map((genre, i) => {
+        {genres?.map((genre, i) => {
           return <li key={genre}>{genre}</li>;
         })}
       </ul>
@@ -17,8 +20,10 @@ export default function Movie({ movie }) {
   );
 }
 
+// props 타입
 Movie.propTypes = {
   movie: {
+    id: PropTypes.number.isRequired,
     medium_cover_image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
