@@ -73,11 +73,11 @@ export default function Movie({ movie }) {
       </MovieTitle>
       <MovieYear>{year}</MovieYear>
       <p>{summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
-      <ul>
-        {genres?.map((genre, i) => {
+      <MovieGenres>
+        {genres?.map((genre) => {
           return <li key={genre}>{genre}</li>;
         })}
-      </ul>
+      </MovieGenres>
     </Movie>
   );
 }

@@ -1,11 +1,29 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { styled } from "styled-components";
+import { useParams, useNavigate } from "react-router-dom";
+import MovieDetail from "../components/MovieDetail";
 import axios from "axios";
 
 export default function Detail() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState(null);
+  const navigate = useNavigate();
+
+  const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+      url(${details?.background_image});
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    color: white;
+  `;
+
   useEffect(() => {
     (async () => {
       const {
@@ -17,17 +35,21 @@ export default function Detail() {
       setLoading(false);
     })();
   }, []);
-  console.log(details);
+
   return (
-    <>
-      <h1>Detail</h1>
+    <Wrapper>
+      <h3
+        style={{ textAlign: "center", cursor: "pointer" }}
+        onClick={() => navigate("/")}
+      >
+        👉🏻 Home 👈🏻
+      </h3>
+      <h1>Movie Info</h1>
       {loading ? (
-        <h1>Loading...</h1>
+        <h1 style={{ height: "100vh" }}>Loading...</h1>
       ) : (
-        <div>
-          <h2>{details.title}</h2>
-        </div>
+        <MovieDetail details={details} />
       )}
-    </>
+    </Wrapper>
   );
 }
