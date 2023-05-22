@@ -30,6 +30,11 @@ export default function Movie({ movie }) {
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
       0 18px 36px -18px rgba(0, 0, 0, 0.3),
       0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    opacity: 1;
+    transition: all 0.5s;
+    &: hover {
+      opacity: 0.5;
+    }
   `;
 
   const MovieTitle = styled.h2`
@@ -67,7 +72,9 @@ export default function Movie({ movie }) {
 
   return (
     <Movie>
-      <MovieImg src={medium_cover_image} alt="..." />
+      <Link to={`/movie/${id}`}>
+        <MovieImg src={medium_cover_image} alt="..." />
+      </Link>
       <MovieTitle>
         <Link to={`/movie/${id}`}>{title}</Link>
       </MovieTitle>
