@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
 import MovieDetail from "../components/MovieDetail";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 export default function Detail() {
   const { id } = useParams();
@@ -45,11 +46,7 @@ export default function Detail() {
         👉🏻 Home 👈🏻
       </h3>
       <h1>Movie Info</h1>
-      {loading ? (
-        <h1 style={{ height: "100vh" }}>Loading...</h1>
-      ) : (
-        <MovieDetail details={details} />
-      )}
+      {loading ? <Loader /> : <MovieDetail details={details} />}
     </Wrapper>
   );
 }

@@ -2,19 +2,11 @@ import Movie from "../components/Movie";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
-
-  const Loader = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 300;
-  `;
 
   const Container = styled.div`
     height: 100%;
@@ -56,12 +48,7 @@ export default function Home() {
   return (
     <Container>
       {loading ? (
-        <>
-          <h1>Loading...</h1>
-          <Loader>
-            <span>Loading...</span>
-          </Loader>
-        </>
+        <Loader />
       ) : (
         <Movies>
           {movies?.map((movie) => {
